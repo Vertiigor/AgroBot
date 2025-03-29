@@ -57,14 +57,16 @@ namespace AgroBot.Migrations
                 name: "Crops",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    AuthorId = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     ChatId = table.Column<string>(type: "text", nullable: false),
                     Culture = table.Column<string>(type: "text", nullable: false),
                     SowingDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CollectionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Substrate = table.Column<string>(type: "text", nullable: false)
+                    AddedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Substrate = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,9 +77,8 @@ namespace AgroBot.Migrations
                 name: "Journals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Data = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Photo = table.Column<byte[]>(type: "bytea", nullable: false),
                     Height = table.Column<int>(type: "integer", nullable: false),
                     ObservationText = table.Column<string>(type: "text", nullable: false)

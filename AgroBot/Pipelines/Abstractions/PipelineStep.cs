@@ -7,9 +7,13 @@ namespace AgroBot.Pipelines.Abstractions
     public enum PipelineStepType
     {
         BotInfo,
-        ListCrop,
-        WritingTitle,
-        WritingContent,
+
+        NameStep,
+        CultureChoosing,
+        SowingDateChoosing,
+        SubstrateChoosing,
+        HarvestDateChoosing,
+
         ChoosingOption
     }
 

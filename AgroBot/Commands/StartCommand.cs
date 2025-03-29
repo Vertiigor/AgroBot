@@ -63,7 +63,7 @@ namespace AgroBot.Commands
             }
             else
             {
-                await _messageSender.SendTextMessageAsync(chatId, "You are not registered. Please, use /start command to register.");
+                await _messageSender.SendTextMessageAsync(chatId, "You are already register.");
             }
         }
     }

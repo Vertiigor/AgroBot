@@ -31,6 +31,10 @@ namespace AgroBot.Data
             builder.Entity<PipelineContext>()
                 .Property(p => p.CurrentStep)
                 .HasConversion(v => v.ToString(), v => (PipelineStepType)Enum.Parse(typeof(PipelineStepType), v));
+
+            builder.Entity<Crop>()
+                .Property(c => c.Status)
+                .HasConversion(v => v.ToString(), v => (CropStatus)Enum.Parse(typeof(CropStatus), v));
         }
     }
 }

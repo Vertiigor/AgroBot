@@ -3,6 +3,7 @@ using AgroBot.Commands;
 using AgroBot.Data;
 using AgroBot.Keyboards;
 using AgroBot.Models;
+using AgroBot.Pipelines.CropCreation;
 using AgroBot.Pipelines.Registration;
 using AgroBot.Repositories.Abstractions;
 using AgroBot.Repositories.Implementations;
@@ -46,14 +47,25 @@ public class Program
         builder.Services.AddScoped<KeyboardMarkupBuilder>();
         builder.Services.AddScoped<BotMessageSender>();
         builder.Services.AddScoped<ICommand, StartCommand>();
+        builder.Services.AddScoped<ICommand, NewCropCommand>();
         builder.Services.AddScoped<BotMessageHandler>();
         builder.Services.AddScoped<CommandDispatcher>();
         builder.Services.AddSingleton<BotClient>();
+        builder.Services.AddScoped<ICropRepository, CropRepository>();
+        builder.Services.AddScoped<ICropService, CropService>();
 
 
         // Register the RegistrationPipeline and its steps
         builder.Services.AddScoped<RegistrationPipeline>();
         builder.Services.AddScoped<BotInfoStep>();
+
+        // Register the CropCreationPipeline and its steps
+        builder.Services.AddScoped<CropCreationPipeline>();
+        builder.Services.AddScoped<NameStep>();
+        builder.Services.AddScoped<CultureStep>();
+        builder.Services.AddScoped<SowingDateStep>();
+        builder.Services.AddScoped<SubstrateStep>();
+        builder.Services.AddScoped<CollectionDateStep>();
 
 
         // Add services to the container.

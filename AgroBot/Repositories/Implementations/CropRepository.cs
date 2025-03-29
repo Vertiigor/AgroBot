@@ -11,9 +11,14 @@ namespace AgroBot.Repositories.Implementations
         {
         }
 
-        public async Task<IEnumerable<Crop>> GetAllByChatId(string chatId)
+        public async Task<IEnumerable<Crop>> GetAllByAuthorIdAsync(string authorId)
         {
-            return await _context.Crops.Where(m => m.ChatId == chatId).ToListAsync();
+            return await _context.Crops.Where(c => c.AuthorId == authorId).ToListAsync();
+        }
+
+        public async Task<Crop> GetByAuthorIdAsync(string authorId)
+        {
+            return await _context.Crops.FirstOrDefaultAsync(c => c.AuthorId == authorId);
         }
     }
 }

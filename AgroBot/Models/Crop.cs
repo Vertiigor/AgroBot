@@ -5,7 +5,10 @@ namespace AgroBot.Models
     public class Crop
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
+
+        [Required]
+        public string AuthorId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -23,6 +26,18 @@ namespace AgroBot.Models
         public DateTime CollectionDate { get; set; }
 
         [Required]
+        public DateTime AddedTime { get; set; } // added into the DB
+
+        [Required]
         public string Substrate { get; set; }
+
+        [Required]
+        public CropStatus Status { get; set; }
+    }
+
+    public enum CropStatus
+    {
+        Draft,
+        Active
     }
 }

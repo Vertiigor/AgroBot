@@ -7,10 +7,10 @@ namespace AgroBot.Models
     public class Journal 
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        public DateTime Data{ get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
         public byte[] Photo { get; set; }

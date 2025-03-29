@@ -13,9 +13,36 @@ namespace AgroBot.Services.Implementations
             _cropRepository = repository;
         }
 
-        public async Task<IEnumerable<Crop>> GetAllByChatId(string chatId)
+        public async Task<IEnumerable<Crop>> GetAllByAuthorIdAsync(string authorId)
         {
-            return await _cropRepository.GetAllByChatId(chatId);
+            return await _cropRepository.GetAllByAuthorIdAsync(authorId);
+        }
+
+        public async Task<Crop> GetByAuthorIdAsync(string authorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Crop> GetLastDraftByAuthorIdAsync(string authorId)
+        {
+            var corps = await GetAllByAuthorIdAsync(authorId);
+            var sortedCrops = corps.Where(p => p.Status == CropStatus.Draft).OrderByDescending(p => p.AddedTime).ToList();
+
+            if (sortedCrops.Count == 0)
+                return null;
+
+            return sortedCrops.First();
+        }
+
+        public async Task<Crop> GetLastActiveByAuthorIdAsync(string authorId)
+        {
+            var corps = await GetAllByAuthorIdAsync(authorId);
+            var sortedCrops = corps.Where(p => p.Status == CropStatus.Active).OrderByDescending(p => p.AddedTime).ToList();
+
+            if (sortedCrops.Count == 0)
+                return null;
+
+            return sortedCrops.First();
         }
     }
 }

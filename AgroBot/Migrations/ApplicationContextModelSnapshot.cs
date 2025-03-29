@@ -24,11 +24,15 @@ namespace AgroBot.Migrations
 
             modelBuilder.Entity("AgroBot.Models.Crop", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<DateTime>("AddedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("ChatId")
                         .IsRequired()
@@ -48,6 +52,10 @@ namespace AgroBot.Migrations
                     b.Property<DateTime>("SowingDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Substrate")
                         .IsRequired()
                         .HasColumnType("text");
@@ -59,13 +67,10 @@ namespace AgroBot.Migrations
 
             modelBuilder.Entity("AgroBot.Models.Journal", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Height")
