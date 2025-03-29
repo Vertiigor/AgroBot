@@ -13,6 +13,7 @@ namespace AgroBot.Pipelines.Abstractions
         SowingDate,
         Substrate,
         CollectingDate,
+        AdditionalInfo,
 
         Description,
 

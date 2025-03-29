@@ -18,7 +18,7 @@ namespace AgroBot.Pipelines.CultureCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Please, enter the name of the culture.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "Please, enter the description of the culture.");
             }
             else
             {
@@ -34,6 +34,8 @@ namespace AgroBot.Pipelines.CultureCreation
                 context.IsCompleted = true;
                 context.FinishedDate = DateTime.UtcNow;
                 await _pipelineContextService.DeleteAsync(context.Id);
+
+                await _messageSender.SendTextMessageAsync(context.ChatId, "Culture has been successfully created.");
             }
         }
 

@@ -3,15 +3,20 @@ using AgroBot.Models;
 using AgroBot.Pipelines.Abstractions;
 using AgroBot.Services.Abstractions;
 using AgroBot.Services.Implementations;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace AgroBot.Pipelines.CropCreation
 {
     public class CultureStep : PipelineStep
     {
+        private readonly ICultureService _cultureService;
+        private readonly Keyboards.KeyboardMarkupBuilder _keyboardMarkup;
         private readonly ICropService _cropService;
 
-        public CultureStep(BotMessageSender messageSender, IPipelineContextService pipelineContextService, IUserService userService, ICropService cropService) : base(messageSender, pipelineContextService, userService)
+        public CultureStep(BotMessageSender messageSender, IPipelineContextService pipelineContextService, IUserService userService, ICultureService cultureService, Keyboards.KeyboardMarkupBuilder keyboardMarkup, ICropService cropService) : base(messageSender, pipelineContextService, userService)
         {
+            _cultureService = cultureService;
+            _keyboardMarkup = keyboardMarkup;
             _cropService = cropService;
         }
 
@@ -19,7 +24,21 @@ namespace AgroBot.Pipelines.CropCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Please enter the name of the culture.");
+                var cultures = await _cultureService.GetAllAsync();
+                var culturesNames = cultures.Select(c => c.Name).ToList();
+
+                List<InlineKeyboardButton> buttons = new List<InlineKeyboardButton>();
+
+                foreach (var name in culturesNames)
+                {
+                    var button = _keyboardMarkup.InitializeInlineKeyboardButton(name, $"{CallbackType.ChooseCulture.ToString()}:{name}");
+                    buttons.Add(button);
+                }
+
+                var keyboard = _keyboardMarkup.InitializeInlineKeyboardMarkup(buttons);
+
+                // Ask user for the title
+                await _messageSender.SendTextMessageAsync(context.ChatId, "🎓Select the culture: ", replyMarkup: keyboard);
             }
             else
             {

@@ -8,6 +8,7 @@ namespace AgroBot.Bot
     public enum CallbackType
     {
         ChooseUniversity,
+        ChooseCulture,
         EditProfile
     }
     public class CallbackHandler
@@ -23,12 +24,41 @@ namespace AgroBot.Bot
             _handlers = new Dictionary<string, Func<CallbackQuery, Task>>
             {
                 [CallbackType.ChooseUniversity.ToString()] = async (query) => await HandleChooseUniversity(query),
-                [CallbackType.EditProfile.ToString()] = async (query) => await HandleEditProfile(query)
+                [CallbackType.EditProfile.ToString()] = async (query) => await HandleEditProfile(query),
+                [CallbackType.ChooseCulture.ToString()] = async (query) => await HandleChooseCulture(query)
             };
             _pipelineContextService = pipelineContextService;
             _botClient = botClient;
             _keyboardMarkup = keyboardMarkup;
             _messageSender = messageSender;
+        }
+
+        private async Task HandleChooseCulture(CallbackQuery query)
+        {
+            // Logic to process university selection
+            // Extract university name (assuming format "choose_university:University Name")
+            var parts = query.Data.Split(':');
+            if (parts.Length < 2)
+            {
+                Console.WriteLine("Invalid callback data format.");
+                return;
+            }
+
+            string cultureName = parts[1]; // Extract name from callback data
+
+            var chatId = query.Message.Chat.Id.ToString();
+            var messageId = query.Message.Id;
+
+            var context = await _pipelineContextService.GetByChatIdAsync(chatId);
+
+            context.Content = cultureName;
+
+            await _pipelineContextService.UpdateAsync(context);
+
+            // Remove inline buttons after selection
+            await _keyboardMarkup.RemoveKeyboardAsync(_botClient, chatId, messageId);
+
+            await _messageSender.EditTestMessageAsync(chatId, messageId, $"You've selected {cultureName} as your culture.");
         }
 
         public async Task HandleCallbackAsync(CallbackQuery query)

@@ -58,6 +58,7 @@ namespace AgroBot.Commands
                     Culture = string.Empty,
                     SowingDate = DateTime.UtcNow,
                     CollectionDate = DateTime.UtcNow,
+                    AdditionalInfo = string.Empty,
                     Substrate = string.Empty,
                     AddedTime = DateTime.UtcNow,
                     Status = CropStatus.Draft,

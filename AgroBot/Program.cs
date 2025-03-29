@@ -70,6 +70,7 @@ public class Program
         builder.Services.AddScoped<SowingDateStep>();
         builder.Services.AddScoped<SubstrateStep>();
         builder.Services.AddScoped<CollectionDateStep>();
+        builder.Services.AddScoped<AdditionalInfoStep>();
 
         // Register the CultureCreationPipeline and its steps
         builder.Services.AddScoped<CultureCreationPipeline>();
