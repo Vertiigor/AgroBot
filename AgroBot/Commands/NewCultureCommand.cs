@@ -7,7 +7,7 @@ using Telegram.Bot.Types;
 
 namespace AgroBot.Commands
 {
-    public class NewCropCommand : ICommand
+    public class NewCultureCommand : ICommand
     {
         private readonly IUserService _userService;
         private readonly IPipelineContextService _pipelineContextService;
@@ -15,8 +15,9 @@ namespace AgroBot.Commands
         private readonly BotMessageSender _messageSender;
         private readonly ICropService _cropService;
         private readonly KeyboardMarkupBuilder _keyboardMarkup;
+        private readonly ICultureService _cultureService;
 
-        public NewCropCommand(IUserService userService, IPipelineContextService pipelineContextService, ICropService cropService, PipelineHandler pipelineHandler, BotMessageSender messageSender, KeyboardMarkupBuilder keyboardMarkupBuilder)
+        public NewCultureCommand(IUserService userService, IPipelineContextService pipelineContextService, ICropService cropService, PipelineHandler pipelineHandler, BotMessageSender messageSender, KeyboardMarkupBuilder keyboardMarkupBuilder, ICultureService cultureService)
         {
             _pipelineContextService = pipelineContextService;
             _cropService = cropService;
@@ -24,9 +25,10 @@ namespace AgroBot.Commands
             _pipeline = pipelineHandler;
             _messageSender = messageSender;
             _keyboardMarkup = keyboardMarkupBuilder;
+            _cultureService = cultureService;
         }
 
-        public bool CanHandle(string command) => command.Equals("/new_crop", StringComparison.OrdinalIgnoreCase);
+        public bool CanHandle(string command) => command.Equals("/new_culture", StringComparison.OrdinalIgnoreCase);
 
         public async Task HandleAsync(Update update)
         {
@@ -44,31 +46,25 @@ namespace AgroBot.Commands
                 {
                     Id = Guid.NewGuid().ToString(),
                     ChatId = chatId,
-                    Type = PipelineType.CropCreation,
+                    Type = PipelineType.CultureCreation,
                     CurrentStep = PipelineStepType.NameStep,
                     Content = string.Empty,
                     IsCompleted = false
                 };
-
-                var crop = new Crop
+                var culture = new Culture
                 {
                     Id = Guid.NewGuid().ToString(),
-                    ChatId = chatId,
                     Name = string.Empty,
-                    Culture = string.Empty,
-                    SowingDate = DateTime.UtcNow,
-                    CollectionDate = DateTime.UtcNow,
-                    Substrate = string.Empty,
+                    Description = string.Empty,
                     AddedTime = DateTime.UtcNow,
-                    Status = CropStatus.Draft,
-                    AuthorId = user.Id
+                    AuthorId = user.Id,
+                    Status = CultureStatus.Draft
                 };
 
-                await _cropService.AddAsync(crop);
                 await _pipelineContextService.AddAsync(context);
+                await _cultureService.AddAsync(culture);
 
                 await _pipeline.HandlePipelineAsync(context);
-                //await _messageSender.SendTextMessageAsync(chatId, "Please enter the name of the crop.");
             }
             else
             {

@@ -9,10 +9,12 @@ namespace AgroBot.Pipelines.Abstractions
         BotInfo,
 
         NameStep,
-        CultureChoosing,
-        SowingDateChoosing,
-        SubstrateChoosing,
-        HarvestDateChoosing,
+        Culture,
+        SowingDate,
+        Substrate,
+        CollectingDate,
+
+        Description,
 
         ChoosingOption
     }

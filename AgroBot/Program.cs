@@ -4,6 +4,7 @@ using AgroBot.Data;
 using AgroBot.Keyboards;
 using AgroBot.Models;
 using AgroBot.Pipelines.CropCreation;
+using AgroBot.Pipelines.CultureCreation;
 using AgroBot.Pipelines.Registration;
 using AgroBot.Repositories.Abstractions;
 using AgroBot.Repositories.Implementations;
@@ -48,11 +49,14 @@ public class Program
         builder.Services.AddScoped<BotMessageSender>();
         builder.Services.AddScoped<ICommand, StartCommand>();
         builder.Services.AddScoped<ICommand, NewCropCommand>();
+        builder.Services.AddScoped<ICommand, NewCultureCommand>();
         builder.Services.AddScoped<BotMessageHandler>();
         builder.Services.AddScoped<CommandDispatcher>();
         builder.Services.AddSingleton<BotClient>();
         builder.Services.AddScoped<ICropRepository, CropRepository>();
         builder.Services.AddScoped<ICropService, CropService>();
+        builder.Services.AddScoped<ICultureRepository, CultureRepository>();
+        builder.Services.AddScoped<ICultureService, CultureService>();
 
 
         // Register the RegistrationPipeline and its steps
@@ -61,11 +65,16 @@ public class Program
 
         // Register the CropCreationPipeline and its steps
         builder.Services.AddScoped<CropCreationPipeline>();
-        builder.Services.AddScoped<NameStep>();
+        builder.Services.AddScoped<Pipelines.CropCreation.NameStep>();
         builder.Services.AddScoped<CultureStep>();
         builder.Services.AddScoped<SowingDateStep>();
         builder.Services.AddScoped<SubstrateStep>();
         builder.Services.AddScoped<CollectionDateStep>();
+
+        // Register the CultureCreationPipeline and its steps
+        builder.Services.AddScoped<CultureCreationPipeline>();
+        builder.Services.AddScoped<Pipelines.CultureCreation.NameStep>();
+        builder.Services.AddScoped<DescriptionStep>();
 
 
         // Add services to the container.

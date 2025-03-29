@@ -25,7 +25,7 @@ namespace AgroBot.Commands
             _keyboardMarkup = keyboardMarkupBuilder;
         }
 
-        public bool CanHandle(string command) => command.Equals("/listcrops", StringComparison.OrdinalIgnoreCase);
+        public bool CanHandle(string command) => command.Equals("/list_crops", StringComparison.OrdinalIgnoreCase);
 
         public async Task HandleAsync(Update update)
         {

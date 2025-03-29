@@ -8,12 +8,10 @@ namespace AgroBot.Data
     public class ApplicationContext : IdentityDbContext<User>
     {
         public DbSet<PipelineContext> Pipelines { get; set; }
-
         public DbSet<Message> Messages { get; set; }
-
         public DbSet<Crop> Crops { get; set; }
-        
         public DbSet<Journal> Journals { get; set; }
+        public DbSet<Culture> Cultures { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
@@ -35,6 +33,10 @@ namespace AgroBot.Data
             builder.Entity<Crop>()
                 .Property(c => c.Status)
                 .HasConversion(v => v.ToString(), v => (CropStatus)Enum.Parse(typeof(CropStatus), v));
+
+            builder.Entity<Culture>()
+                .Property(c => c.Status)
+                .HasConversion(v => v.ToString(), v => (CultureStatus)Enum.Parse(typeof(CultureStatus), v));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace AgroBot.Pipelines.CropCreation
 
         public override bool IsApplicable(PipelineContext context)
         {
-            return context.CurrentStep == PipelineStepType.HarvestDateChoosing;
+            return context.CurrentStep == PipelineStepType.CollectingDate;
         }
     }
 }

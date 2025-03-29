@@ -32,6 +32,9 @@ namespace AgroBot.Models
         public string Substrate { get; set; }
 
         [Required]
+        public string AdditionalInfo { get; set; } 
+
+        [Required]
         public CropStatus Status { get; set; }
     }
 

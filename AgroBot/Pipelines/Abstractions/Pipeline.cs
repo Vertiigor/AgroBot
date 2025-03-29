@@ -6,7 +6,8 @@ namespace AgroBot.Pipelines.Abstractions
     public enum PipelineType
     {
         Registration,
-        CropCreation
+        CropCreation,
+        CultureCreation
     }
 
     public abstract class Pipeline

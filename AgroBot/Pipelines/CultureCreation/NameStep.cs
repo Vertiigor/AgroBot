@@ -2,36 +2,36 @@
 using AgroBot.Models;
 using AgroBot.Pipelines.Abstractions;
 using AgroBot.Services.Abstractions;
+using Telegram.Bot.Types;
 
-
-namespace AgroBot.Pipelines.CropCreation
+namespace AgroBot.Pipelines.CultureCreation
 {
     public class NameStep : PipelineStep
     {
-        private readonly ICropService _cropService;
+        private readonly ICultureService _cultureService;
 
-        public NameStep(BotMessageSender messageSender, IPipelineContextService pipelineContextService, IUserService userService, ICropService cropService) : base(messageSender, pipelineContextService, userService)
+        public NameStep(BotMessageSender messageSender, IPipelineContextService pipelineContextService, IUserService userService, ICultureService cultureService) : base(messageSender, pipelineContextService, userService)
         {
-            _cropService = cropService;
+            _cultureService = cultureService;
         }
 
         public async override Task ExecuteAsync(PipelineContext context)
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Please enter the name of the crop.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "Please, enter the name of the culture.");
             }
             else
             {
                 var user = await _userService.GetByChatIdAsync(context.ChatId);
-                var crop = await _cropService.GetLastDraftByAuthorIdAsync(user.Id);
+                var culture = await _cultureService.GetLastDraftByAuthorIdAsync(user.Id);
 
-                crop.Name = context.Content;
+                culture.Name = context.Content;
 
-                await _cropService.UpdateAsync(crop);
+                await _cultureService.UpdateAsync(culture);
 
                 context.StartedDate = DateTime.UtcNow;
-                context.CurrentStep = PipelineStepType.Culture;    // Move to the next step
+                context.CurrentStep = PipelineStepType.Description;    // Move to the next step
                 context.Content = string.Empty;
                 await _pipelineContextService.UpdateAsync(context);
             }
