@@ -1,0 +1,6 @@
+@AgroBot_HostAddress = http://localhost:5023
+
+GET {{AgroBot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
