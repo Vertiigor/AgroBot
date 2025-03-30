@@ -19,7 +19,7 @@ namespace AgroBot.Pipelines.CropCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Please enter the possible harvest date in YYYY-MM-DD format.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "📅 Please enter the possible harvest date in YYYY-MM-DD format.\nWhen do you expect to harvest this crop? Enter the estimated harvest date in YYYY-MM-DD format to plan ahead.");
             }
             else
             {

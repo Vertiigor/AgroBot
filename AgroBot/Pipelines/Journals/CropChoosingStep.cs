@@ -39,7 +39,7 @@ namespace AgroBot.Pipelines.Journals
                     var keyboard = _keyboardMarkup.InitializeInlineKeyboardMarkup(buttons);
 
                     // Ask user for the title
-                    await _messageSender.SendTextMessageAsync(context.ChatId, "🎓Select the crop: ", replyMarkup: keyboard);
+                    await _messageSender.SendTextMessageAsync(context.ChatId, "🌾 Select the crop:\nPlease choose the crop you want to manage from the list below. If the crop is not listed, consider adding it to your records.", replyMarkup: keyboard);
                 }
                 else
                 {

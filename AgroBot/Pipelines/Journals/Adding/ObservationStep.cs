@@ -21,7 +21,7 @@ namespace AgroBot.Pipelines.Journals.Adding
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Enter observation text.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "📝 Enter observation text.\nDescribe your latest observations about the crop. Mention any noticeable changes, health status, or environmental conditions that might affect its growth.");
             }
             else
             {

@@ -20,7 +20,7 @@ namespace AgroBot.Pipelines.Journals
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Enter current height.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "📏 Enter current height.\nPlease provide the latest measured height of the crop in centimeters. This helps track its growth progress over time.");
             }
             else
             {

@@ -18,7 +18,7 @@ namespace AgroBot.Pipelines.CropCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "What substrate do you use?");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "🌿 What substrate do you use?\nPlease specify the type of substrate or growing medium (e.g., soil, hydroponics, coco coir) used for this crop. This information helps in understanding the plant’s growing conditions.");
             }
             else
             {

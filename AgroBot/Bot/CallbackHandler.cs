@@ -65,7 +65,7 @@ namespace AgroBot.Bot
             // Remove inline buttons after selection
             await _keyboardMarkup.RemoveKeyboardAsync(_botClient, chatId, messageId);
 
-            await _messageSender.EditTestMessageAsync(chatId, messageId, $"You've selected {option} as option.");
+            await _messageSender.EditTestMessageAsync(chatId, messageId, $"You've selected {option}");
         }
 
         private async Task HandleChooseCrop(CallbackQuery query)
@@ -99,7 +99,7 @@ namespace AgroBot.Bot
             // Remove inline buttons after selection
             await _keyboardMarkup.RemoveKeyboardAsync(_botClient, chatId, messageId);
 
-            await _messageSender.EditTestMessageAsync(chatId, messageId, $"You've selected {crop} as your crop.");
+            await _messageSender.EditTestMessageAsync(chatId, messageId, $"You've selected {crop}");
         }
 
         private async Task HandleChooseCulture(CallbackQuery query)
@@ -127,7 +127,7 @@ namespace AgroBot.Bot
             // Remove inline buttons after selection
             await _keyboardMarkup.RemoveKeyboardAsync(_botClient, chatId, messageId);
 
-            await _messageSender.EditTestMessageAsync(chatId, messageId, $"You've selected {cultureName} as your culture.");
+            await _messageSender.EditTestMessageAsync(chatId, messageId, $"You've selected {cultureName}");
         }
 
         public async Task HandleCallbackAsync(CallbackQuery query)

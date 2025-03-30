@@ -19,7 +19,7 @@ namespace AgroBot.Pipelines.CultureCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Please, enter the name of the culture.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "🌱 Please enter the name of the culture (type of the plants).\nSpecify the type of plant you are working with. This helps categorize and organize different crops in the system.");
             }
             else
             {

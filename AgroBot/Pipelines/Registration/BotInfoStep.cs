@@ -18,7 +18,7 @@ namespace AgroBot.Pipelines.Registration
             context.IsCompleted = true;
             context.FinishedDate = DateTime.UtcNow;
             await _pipelineContextService.DeleteAsync(context.Id);
-            await _messageSender.SendTextMessageAsync(context.ChatId, $"Welcome! You have been registered.");
+            await _messageSender.SendTextMessageAsync(context.ChatId, $"✅ Welcome! You have been registered.\nCongratulations! Your account has been successfully created. You can now start tracking and managing your crops. ");
         }
 
         public override bool IsApplicable(PipelineContext context)

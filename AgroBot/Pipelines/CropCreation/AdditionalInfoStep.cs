@@ -18,7 +18,7 @@ namespace AgroBot.Pipelines.CropCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Write additional info.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "📝 Write additional info.\nIf there’s anything else important to note about this crop, write it here. You can include special care instructions, potential issues, or future plans for cultivation.");
             }
             else
             {

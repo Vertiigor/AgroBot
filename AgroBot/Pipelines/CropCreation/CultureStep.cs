@@ -50,7 +50,7 @@ namespace AgroBot.Pipelines.CropCreation
                 var keyboard = _keyboardMarkup.InitializeInlineKeyboardMarkup(buttons);
 
                 // Ask user for the title
-                await _messageSender.SendTextMessageAsync(context.ChatId, "🎓Select the culture: ", replyMarkup: keyboard);
+                await _messageSender.SendTextMessageAsync(context.ChatId, "🌱 Please culture of new crop: ", replyMarkup: keyboard);
             }
             else
             {

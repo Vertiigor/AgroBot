@@ -18,7 +18,7 @@ namespace AgroBot.Pipelines.CultureCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Please, enter the description of the culture.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "📖 Please enter the description of the culture.\nProvide a brief description of this plant culture, including its characteristics, growth requirements, or any important notes for future reference.");
             }
             else
             {
@@ -35,7 +35,7 @@ namespace AgroBot.Pipelines.CultureCreation
                 context.FinishedDate = DateTime.UtcNow;
                 await _pipelineContextService.DeleteAsync(context.Id);
 
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Culture has been successfully created.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "✅ Culture has been successfully created.\nYour new plant culture has been added to the system! You can now start tracking its growth and adding observations.");
             }
         }
 

@@ -19,7 +19,7 @@ namespace AgroBot.Pipelines.CropCreation
         {
             if (string.IsNullOrEmpty(context.Content))
             {
-                await _messageSender.SendTextMessageAsync(context.ChatId, "Please enter the name of the crop.");
+                await _messageSender.SendTextMessageAsync(context.ChatId, "🌾 Please enter the name of the crop.\nWhat is the name of this specific crop? Providing a clear and unique name will help differentiate it from other plants.");
             }
             else
             {

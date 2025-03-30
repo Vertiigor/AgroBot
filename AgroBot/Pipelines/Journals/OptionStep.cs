@@ -36,7 +36,7 @@ namespace AgroBot.Pipelines.Journals
                 var keyboard = _keyboardMarkup.InitializeInlineKeyboardMarkup(buttons);
 
                 // Ask user for the title
-                await _messageSender.SendTextMessageAsync(context.ChatId, "🎓Select the option: ", replyMarkup: keyboard);
+                await _messageSender.SendTextMessageAsync(context.ChatId, "🎓Do you wanna add or check records of this crop?", replyMarkup: keyboard);
             }
             else
             {
