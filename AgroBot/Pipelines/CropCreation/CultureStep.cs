@@ -35,6 +35,18 @@ namespace AgroBot.Pipelines.CropCreation
                     buttons.Add(button);
                 }
 
+                if (buttons.Count == 0)
+                {
+                    await _messageSender.SendTextMessageAsync(context.ChatId, "There are no cultures in the database. Please, add a culture first.");
+                    context.StartedDate = DateTime.UtcNow;
+                    context.CurrentStep = PipelineStepType.Culture;    // Move to the next step
+                    context.Content = string.Empty;
+                    context.IsCompleted = true;
+                    context.FinishedDate = DateTime.UtcNow;
+                    await _pipelineContextService.DeleteAsync(context.Id);
+                    return;
+                }
+
                 var keyboard = _keyboardMarkup.InitializeInlineKeyboardMarkup(buttons);
 
                 // Ask user for the title

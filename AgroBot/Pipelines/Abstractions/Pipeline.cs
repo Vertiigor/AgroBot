@@ -7,7 +7,8 @@ namespace AgroBot.Pipelines.Abstractions
     {
         Registration,
         CropCreation,
-        CultureCreation
+        CultureCreation,
+        Journal
     }
 
     public abstract class Pipeline

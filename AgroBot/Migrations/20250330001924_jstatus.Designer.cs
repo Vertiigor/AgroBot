@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AgroBot.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250329150556_init")]
-    partial class init
+    [Migration("20250330001924_jstatus")]
+    partial class jstatus
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,10 @@ namespace AgroBot.Migrations
 
                     b.Property<DateTime>("AddedTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("AdditionalInfo")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("AuthorId")
                         .IsRequired()
@@ -68,9 +72,42 @@ namespace AgroBot.Migrations
                     b.ToTable("Crops");
                 });
 
+            modelBuilder.Entity("AgroBot.Models.Culture", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("AddedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cultures");
+                });
+
             modelBuilder.Entity("AgroBot.Models.Journal", b =>
                 {
                     b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CropId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Date")
@@ -86,6 +123,10 @@ namespace AgroBot.Migrations
                     b.Property<byte[]>("Photo")
                         .IsRequired()
                         .HasColumnType("bytea");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

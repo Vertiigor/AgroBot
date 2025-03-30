@@ -103,6 +103,10 @@ namespace AgroBot.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("CropId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
@@ -116,6 +120,10 @@ namespace AgroBot.Migrations
                     b.Property<byte[]>("Photo")
                         .IsRequired()
                         .HasColumnType("bytea");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

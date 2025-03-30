@@ -1,5 +1,7 @@
 ﻿using AgroBot.Bot;
 using AgroBot.Keyboards;
+using AgroBot.Models;
+using AgroBot.Pipelines.Abstractions;
 using AgroBot.Services.Abstractions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
@@ -38,24 +40,20 @@ namespace AgroBot.Commands
 
             var isAdded = await _userService.DoesUserExist(user);
 
-            if (isAdded == false)
+            if (isAdded)
             {
-                var crops = await _cropService.GetAllByAuthorIdAsync(user.Id);
+                var context = new PipelineContext()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ChatId = chatId,
+                    Type = PipelineType.Journal,
+                    CurrentStep = PipelineStepType.ChoosingCrop,
+                    Content = string.Empty,
+                    IsCompleted = false
+                };
 
-                if (crops.Any())
-                {
-                    var buttons = new List<InlineKeyboardButton>();
-                    foreach (var crop in crops)
-                    {
-                        buttons.Add(_keyboardMarkup.InitializeInlineKeyboardButton(crop.Name, crop.Id));
-                    }
-                    var keyboard = _keyboardMarkup.InitializeInlineKeyboardMarkup(buttons);
-                    await _messageSender.SendTextMessageAsync(chatId, "Here is the list of your crops:", keyboard);
-                }
-                else
-                {
-                    await _messageSender.SendTextMessageAsync(chatId, "You have no crops. Please, use /addcrop command to add a crop.");
-                }
+                await _pipelineContextService.AddAsync(context);
+                await _pipeline.HandlePipelineAsync(context);
             }
             else
             {

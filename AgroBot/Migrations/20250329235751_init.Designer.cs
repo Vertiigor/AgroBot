@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AgroBot.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250329191217_Cultures")]
-    partial class Cultures
+    [Migration("20250329235751_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,10 @@ namespace AgroBot.Migrations
             modelBuilder.Entity("AgroBot.Models.Journal", b =>
                 {
                     b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CropId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Date")

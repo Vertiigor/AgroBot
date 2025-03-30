@@ -17,7 +17,12 @@ namespace AgroBot.Pipelines.Abstractions
 
         Description,
 
-        ChoosingOption
+        ChoosingOption,
+        ChoosingCrop,
+        ListRecords,
+        AddRecords,
+
+        HeightStep
     }
 
     public abstract class PipelineStep

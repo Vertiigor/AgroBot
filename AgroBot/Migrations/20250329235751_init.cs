@@ -66,6 +66,7 @@ namespace AgroBot.Migrations
                     CollectionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     AddedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Substrate = table.Column<string>(type: "text", nullable: false),
+                    AdditionalInfo = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -74,10 +75,27 @@ namespace AgroBot.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cultures",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    AddedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AuthorId = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cultures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Journals",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
+                    CropId = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Photo = table.Column<byte[]>(type: "bytea", nullable: false),
                     Height = table.Column<int>(type: "integer", nullable: false),
@@ -285,6 +303,9 @@ namespace AgroBot.Migrations
 
             migrationBuilder.DropTable(
                 name: "Crops");
+
+            migrationBuilder.DropTable(
+                name: "Cultures");
 
             migrationBuilder.DropTable(
                 name: "Journals");

@@ -5,6 +5,8 @@ using AgroBot.Keyboards;
 using AgroBot.Models;
 using AgroBot.Pipelines.CropCreation;
 using AgroBot.Pipelines.CultureCreation;
+using AgroBot.Pipelines.Journals;
+using AgroBot.Pipelines.Journals.Adding;
 using AgroBot.Pipelines.Registration;
 using AgroBot.Repositories.Abstractions;
 using AgroBot.Repositories.Implementations;
@@ -50,6 +52,7 @@ public class Program
         builder.Services.AddScoped<ICommand, StartCommand>();
         builder.Services.AddScoped<ICommand, NewCropCommand>();
         builder.Services.AddScoped<ICommand, NewCultureCommand>();
+        builder.Services.AddScoped<ICommand, ListCropsCommand>();
         builder.Services.AddScoped<BotMessageHandler>();
         builder.Services.AddScoped<CommandDispatcher>();
         builder.Services.AddSingleton<BotClient>();
@@ -57,6 +60,8 @@ public class Program
         builder.Services.AddScoped<ICropService, CropService>();
         builder.Services.AddScoped<ICultureRepository, CultureRepository>();
         builder.Services.AddScoped<ICultureService, CultureService>();
+        builder.Services.AddScoped<IJournalRepository, JournalRepository>();
+        builder.Services.AddScoped<IJournalService, JournalService>();
 
 
         // Register the RegistrationPipeline and its steps
@@ -76,6 +81,14 @@ public class Program
         builder.Services.AddScoped<CultureCreationPipeline>();
         builder.Services.AddScoped<Pipelines.CultureCreation.NameStep>();
         builder.Services.AddScoped<DescriptionStep>();
+
+        // Register the JournalPipeline and its steps
+        builder.Services.AddScoped<JournalPipeline>();
+        builder.Services.AddScoped<CropChoosingStep>();
+        builder.Services.AddScoped<OptionStep>();
+        builder.Services.AddScoped<ListRecordsStep>();
+        builder.Services.AddScoped<AddNewRecordStep>();
+        builder.Services.AddScoped<ObservationStep>();
 
 
         // Add services to the container.

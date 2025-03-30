@@ -37,6 +37,10 @@ namespace AgroBot.Data
             builder.Entity<Culture>()
                 .Property(c => c.Status)
                 .HasConversion(v => v.ToString(), v => (CultureStatus)Enum.Parse(typeof(CultureStatus), v));
+
+            builder.Entity<Journal>()
+                .Property(j => j.Status)
+                .HasConversion(v => v.ToString(), v => (JournalStatus)Enum.Parse(typeof(JournalStatus), v));
         }
     }
 }

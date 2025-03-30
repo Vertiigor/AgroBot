@@ -2,12 +2,19 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace AgroBot.Models
-
 {
+    public enum JournalStatus
+    {
+        Draft,
+        Active
+    }
     public class Journal 
     {
         [Key]
         public string Id { get; set; }
+
+        [Required]
+        public string CropId { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
@@ -20,6 +27,9 @@ namespace AgroBot.Models
 
         [Required]
         public string ObservationText { get; set; }
+
+        [Required]
+        public JournalStatus Status { get; set; }
 
     }
 
